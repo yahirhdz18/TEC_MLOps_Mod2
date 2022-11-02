@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "tec-mlops-mod2"
+version = "0.1.0"
+description = "Project for Module 2 MLOps TEC"
+authors = ["Gabriel Yahir Hernandez Montes"]
+readme = "README.md"
+packages = [{include = "tec_mlops_mod2"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+typer = "^0.6.1"
+pandas = "^1.5.1"
+pathlib = "^1.0.1"
+datetime = "^4.7"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
