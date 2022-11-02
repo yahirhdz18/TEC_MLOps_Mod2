@@ -1,7 +1,9 @@
 import sys
 
+import typer
+
 sys.path.append('./') 
 
-from tec_mlops_mod2.todos.list_methods import get_existing_lists
+from tec_mlops_mod2.todos.typer_app import app
 
-print(get_existing_lists())
+app()
