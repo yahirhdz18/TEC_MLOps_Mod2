@@ -1,13 +1,11 @@
 import os
 import sys
-import typer
 import pandas as pd
-from datetime import datetime
-from pathlib import Path
 
-from typing import List
+sys.path.append('../') 
+PATH_TO_DATA = 'tec_mlops_mod2/data/'
 
-def get_existing_lists() -> List[str]:
+def get_existing_lists() -> list:
     r""" Reads all existing lists in directory.
 
     Returns a list containing all the lists in the data directory. 
@@ -128,9 +126,58 @@ def load_list(name:str) -> pd.DataFrame:
     """
     return pd.read_csv(get_list_path(name))
 
-def add_to_list(list_name:str, new_row)->None:
+def add_to_list(list_name:str, new_row:list or pd.Series)->None:
+    r""" Adds a new row to an existing list.
+
+    Loads a csv file that matches the name from the data directory 
+    using the get_list_path() function.
+    Then it assings new_row as the last row of the list pd.DataFrame.
+    Finally it stores the edited pandas.DataFrame with the store_list() funciton.
+
+    Parameters
+    ----------
+    name : string
+        The name of the list as it will be saved without the extention.
+    
+    new_row : list or pandas.Series
+        New row for the list in the order ["created", "task", "summary", "status", "owner"]
+
+    Returns
+    -------
+    None
+    """
     df = load_list(list_name)
     df.loc[len(df.index)] = new_row
+    store_list(df, list_name)
+
+def update_task_in_list(list_name:str, task_id:int, field:str, change:str)->None:
+    r""" Edits a task of an existing list.
+
+    Loads a csv file that matches the name from the data directory 
+    using the get_list_path() function.
+    Then it accesses to the task_id and field specified and replaces it with the change variable.
+    Finally it stores the edited pandas.DataFrame with the store_list() funciton.
+
+    Parameters
+    ----------
+    name : string
+        The name of the list as it will be saved without the extention.
+    
+    task_id : int
+        id of the task that will be edited.
+    
+    field: str
+        Name of the filed that will be edited.
+    
+    change: str
+        New value that will replace the existingone.
+
+    Returns
+    -------
+    None
+    """
+    df = load_list(list_name)
+    df.loc[task_id, field] = change
     store_list(df, list_name)
 
 if __name__ == "__main__":
