@@ -42,6 +42,6 @@ To create a new todo list (still with the virtual enviroment activated) enter th
 
 <code> python -m tec_mlops_mod2 update -ln or --listname <"listname"> -i or --taskid <"taskid"> -f or --filed <"field"> -c or --change <"new_value"></code>
 
-### 5 Check the app commands
+### 5. Check the app commands
 
 <code> python -m tec_mlops_mod2 --help </code>
