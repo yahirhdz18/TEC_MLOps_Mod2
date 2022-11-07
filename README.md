@@ -9,7 +9,7 @@
 
 <code> pip install tec_mlops_mod2-0.1.0-py3-none-any.whl </code>
 
-or if you wish to instal it in a virtual environment, enter the following code for **Windows Powershell**:
+or if you wish to install it in a virtual environment, enter the following code for **Windows Powershell**:
 
 <code> python -m venv venv </code>
 
