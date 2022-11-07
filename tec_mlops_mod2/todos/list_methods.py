@@ -1,9 +1,9 @@
 import os
-import sys
 import pandas as pd
+from pathlib import Path
 
-sys.path.append('../') 
-PATH_TO_DATA = 'tec_mlops_mod2/data/'
+PATH = str(Path(__file__).parent.parent)
+PATH_TO_DATA = f"{PATH}/data/"
 
 def get_existing_lists() -> list:
     r""" Reads all existing lists in directory.
