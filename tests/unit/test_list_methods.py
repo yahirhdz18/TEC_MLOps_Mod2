@@ -1,11 +1,12 @@
 import sys
-
+import os
 import shutil
+
 from datetime import datetime
 import pandas as pd
 import pytest
 
-sys.path.append('../') 
+sys.path.append('./') 
 
 from tec_mlops_mod2.todos.list_methods import PATH_TO_DATA
 from tec_mlops_mod2.todos.list_methods import get_list_path
@@ -48,10 +49,10 @@ def df_empty_stored(tmp_dir, df_empty):
 def new_row():
     return {
         "created": datetime.now().strftime("%Y-%m-%d %H-%M-%S"),
-        "task": "cocinar",
-        "summary": "Cocinar algo rico",
+        "task": "Cook",
+        "summary": "Cook something tasty",
         "status": "todo",
-        "owner": "Andre",
+        "owner": "Yahir",
     }
 
 def test_get_list_path():
@@ -60,28 +61,28 @@ def test_get_list_path():
 def test_get_filename():
     assert get_list_filename("data") == "data.csv"
 
-def test_create_list(tmp_dir, df_empty):
+def test_create_list(df_empty):
     create_list("todos")
     df1 = load_list("todos")
     pd.testing.assert_frame_equal(df1, df_empty)
 
-def test_store_list(tmp_dir, df_empty):
+def test_store_list(df_empty):
     store_list(df_empty, "todos")
     df2 = load_list("todos")
     pd.testing.assert_frame_equal(df_empty, df2)
 
 @pytest.mark.xfail
-def test_check_list_exists_fail(tmp_dir):
+def test_check_list_exists_fail():
     assert check_list_exists("todos") == False
 
-def test_check_list_exists(df_empty_stored):
+def test_check_list_exists():
     assert check_list_exists("todos") == True
 
-def test_load_list(df_empty_stored, tmp_dir):
+def test_load_list(df_empty_stored):
     df = load_list("todos")
     pd.testing.assert_frame_equal(df_empty_stored, df)
 
-def test_add_to_list(new_row, df_full, tmp_dir):
+def test_add_to_list(new_row, df_full):
     add_to_list("todos", new_row)
     df1 = load_list("todos")
     pd.testing.assert_frame_equal(df1, df_full)
@@ -91,3 +92,4 @@ def test_update_list(df_full_stored):
     update_task_in_list("todos", 0, "owner", "Ivan")
     df = load_list("todos")
     pd.testing.assert_frame_equal(df, df_full_stored)
+    os.remove(f"{PATH_TO_DATA}/todos.csv") 
